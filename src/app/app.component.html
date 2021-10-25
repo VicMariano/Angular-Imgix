@@ -1,0 +1,115 @@
+<mat-toolbar color="primary">
+  <button mat-button >Angular-IIPU</button>
+  <!-- START EDITTING BUTTON -->
+  <button mat-stroked-button (click)="sidenav.open()">Start editing</button>
+  <span class="spacer"></span>
+  <!-- UNDO BUTTON -->
+  <button
+    mat-icon-button
+    class="example-icon"
+    [disabled]="!undoAvailable"
+    aria-label="Undo button"
+    (click)="prevEdition()"
+  >
+    <mat-icon>undo</mat-icon>
+  </button>
+  <!-- REDO BUTTON -->
+  <button
+    mat-icon-button
+    class="example-icon"
+    [disabled]="!redoAvailable"
+    aria-label="Redo button"
+    (click)="nextEdition()"
+  >
+    <mat-icon>redo</mat-icon>
+  </button>
+  <!-- PROFILE BUTTON -->
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Profile button"
+    (click)="goToProfile()"
+  >
+    <mat-icon>person</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav class="sidenav" mode="side" color="primary">
+    <mat-selection-list #edition [multiple]="false">
+      <!-- ALL ROTATION AND ADJUSTMENTS' LIST -->
+      <mat-list-option
+        *ngFor="let edition of availableEditions"
+        [value]="edition"
+        (click)="setEditionType(edition)"
+      >
+        {{ edition.display_name | titlecase }}
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="sidenav-content">
+
+    <form class="form-box" [formGroup]="imagesForm">
+      <!-- HEADER WITH IMAGE SELECTOR -->
+      <div class="img-picker">
+        <h3 class="img-picker-label">Pick an image to edit!</h3>
+        <mat-form-field appearance="fill" class="img-select">
+          <mat-label>Choose an image</mat-label>
+          <mat-select
+            class="select-img"
+            formControlName="index"
+            (selectionChange)="setValueToImageForm(testImgs[$event.value])"
+          >
+            <mat-option
+              *ngFor="let img of testImgs; index as i"
+              [value]="i"
+              color="secondary"
+            >
+              {{ img.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- IMAGE, EDITIONS APPLIED AND URL -->
+      <div class="img-display-box">
+        <div class="img-and-editions">
+          <!-- MAIN IMAGE -->
+          <img
+            #img
+            ixImg
+            class="mainImg"
+            path="{{ imagesForm.value.path }}"
+            sizes="calc(100vw - 128px)"
+            [imgixParams]="editionHistory[actualStep]"
+          />
+          <!-- COMPONENT DISPLAYING EDITTIONS APPLIED -->
+          <app-current-edition
+            *ngIf="showEditApplied"
+            class="current-edition"
+            [parameters]="editionHistory[actualStep]"
+            (emitNewParams)="paramsModified($event)"
+          ></app-current-edition>
+        </div>
+        <!-- IMAGE'S URL GENERATED WITH ALL PARAMETERS -->
+        <div class="url-textbox">
+          <div>
+            {{
+              imagesForm.controls.url.value +
+                imagesForm.controls.parameters.value
+            }}
+          </div>
+        </div>
+      </div>
+    </form>
+
+<!-- COMPONENT WITH INPUTS TO GENERATE THE PARAMETERS -->
+    <div class="inputs-box" *ngIf="editionSelected">
+      <app-inputs
+        [parameter]="editionSelected"
+        (paramEmitter)="setParam($event)"
+      ></app-inputs>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

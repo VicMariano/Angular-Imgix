@@ -1,0 +1,49 @@
+<!-- MULTIPLE CHOICE OF STRINGS -->
+<div class="opt-buttons" *ngIf="inputs.type === 1">
+  <mat-button-toggle-group aria-label="Values" color="secondary">
+    <mat-button-toggle
+      [value]="option"
+      *ngFor="let option of inputs.possible_valuesStr"
+      (click)="setParamWithString(inputs.tag, option)"
+      >{{ option | labelType }}</mat-button-toggle
+    >
+  </mat-button-toggle-group>
+</div>
+<!-- SLIDER WITH MAX AND MIN -->
+<div *ngIf="inputs.type === 2">
+  <div class="label-container">
+    <label class="label">
+      {{ inputs.label | titlecase }}
+    </label>
+    <label class="value-label">
+      {{ inputs.default }}
+    </label>
+  </div>
+  <mat-slider
+    [max]="inputs.max"
+    [min]="inputs.min"
+    [(ngModel)]="inputs.default"
+    (change)="setParamWithNumber(inputs.default)"
+  >
+  </mat-slider>
+</div>
+<!-- MULTIPLE CHOICE OF NUMBERS -->
+<div *ngIf="inputs.type === 3">
+  <mat-form-field appearance="fill" class="option-select">
+    <mat-label>Choose an option</mat-label>
+    <mat-select (selectionChange)="setParamWithNumber($event.value)">
+      <mat-option
+        *ngFor="let input of inputs.possible_valuesNum"
+        [value]="input"
+      >
+        {{ input }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<!-- BOOLEAN WITH ONE BUTTON -->
+<div *ngIf="inputs.type === 4">
+  <button mat-raised-button color="accent" (click)="setParamBoolean()">
+    {{ inputs.label | titlecase }}
+  </button>
+</div>
