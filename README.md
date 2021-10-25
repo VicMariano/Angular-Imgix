@@ -20,6 +20,9 @@ You will be able to:
 - Once you are done, you can copy the URL (right below the main image) which will take you to your image with all the transformations applied at the moment.
 - You can go to my LinkedIn profile clicking the button on right corner of the toolbar
 
+## Running the proyect
+Download the proyect and run the "dist/iipu-angular/" folder on your web server.
+
 # IipuAngular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.9.
