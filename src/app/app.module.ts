@@ -20,6 +20,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { CurrentEditionComponent } from './components/current-edition/current-edition.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MatInputModule } from '@angular/material/input';
     MatRippleModule,
     MatChipsModule,
     MatInputModule,
+    MatCardModule,
     ImgixAngularModule.forRoot({
       domain: 'assets.imgix.net',
       defaultImgixParams: {

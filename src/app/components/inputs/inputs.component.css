@@ -1,3 +1,11 @@
+.inputs-container {
+  width: 100%;
+  margin: 0 0 2em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .mat-slider-horizontal {
   width: 30em;
 }
@@ -5,16 +13,14 @@
 .label-container {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 30em;
 }
 
-.label{
+.label {
   padding: 0 1em 0 1em;
 }
 
-.opt-buttons{
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
-  padding: 2em 0 0 0;
+.opt-buttons {
+  padding: 1em 0 0 0;
+  justify-items: center;
 }
