@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <button mat-button >Angular-IIPU</button>
+  <button mat-button>Angular-IIPU</button>
   <!-- START EDITTING BUTTON -->
   <button mat-stroked-button (click)="sidenav.open()">Start editing</button>
   <span class="spacer"></span>
@@ -48,7 +48,6 @@
     </mat-selection-list>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
-
     <form class="form-box" [formGroup]="imagesForm">
       <!-- HEADER WITH IMAGE SELECTOR -->
       <div class="img-picker">
@@ -91,25 +90,23 @@
             (emitNewParams)="paramsModified($event)"
           ></app-current-edition>
         </div>
-        <!-- IMAGE'S URL GENERATED WITH ALL PARAMETERS -->
-        <div class="url-textbox">
-          <div>
-            {{
-              imagesForm.controls.url.value +
-                imagesForm.controls.parameters.value
-            }}
-          </div>
-        </div>
+        <!-- BUTTON OPEN NEW TABS TO THE IMAGE'S URL GENERATED WITH ALL PARAMETERS -->
+        <button
+          mat-stroked-button
+          [disabled]="!urlAndParams"
+          (click)="goToImg()"
+        >
+          Open the edited image
+        </button>
       </div>
     </form>
 
-<!-- COMPONENT WITH INPUTS TO GENERATE THE PARAMETERS -->
+    <!-- COMPONENT WITH INPUTS TO GENERATE THE PARAMETERS -->
     <div class="inputs-box" *ngIf="editionSelected">
       <app-inputs
         [parameter]="editionSelected"
         (paramEmitter)="setParam($event)"
       ></app-inputs>
     </div>
-
   </mat-sidenav-content>
 </mat-sidenav-container>
