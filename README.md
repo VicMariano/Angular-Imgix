@@ -3,6 +3,8 @@
   This project is an Angular web app that consumes Imgix's API, developed with Angular Material. It exposes many important transformations and features to make it easy to have variations on a base image or to be able to apply different types of optimizations to images.
 
   Here you can test each of the features that this API has, generating a new image through parameters in real time.
+  
+### See the v2.0 of the app hosted here https://vicmariano.github.io/Angular-Imgix/ !
 
 ## How it works
 
