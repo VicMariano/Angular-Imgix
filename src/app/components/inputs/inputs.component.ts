@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { IExpects, IParameter, IParamGeneric } from 'src/app/interfaces/edit-type.interface';
+import { IExpects, IParameter, IParamGeneric } from '../../interfaces/edit-type.interface';
 import { EventEmitter } from '@angular/core';
-import { IInputs } from 'src/app/interfaces/inputs.interface';
+import { IInputs } from '../../interfaces/inputs.interface';
 
 @Component({
   selector: 'app-inputs',

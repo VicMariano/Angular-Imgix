@@ -19,14 +19,15 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRippleModule } from '@angular/material/core';
 import { CurrentEditionComponent } from './components/current-edition/current-edition.component';
 import { MatChipsModule } from '@angular/material/chips';
-
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
     AppComponent,
     InputsComponent,
     LabelTypePipe,
-    CurrentEditionComponent
+    CurrentEditionComponent,
   ],
   imports: [
     HttpClientModule,
@@ -45,15 +46,16 @@ import { MatChipsModule } from '@angular/material/chips';
     MatButtonToggleModule,
     MatRippleModule,
     MatChipsModule,
+    MatInputModule,
+    MatCardModule,
     ImgixAngularModule.forRoot({
       domain: 'assets.imgix.net',
       defaultImgixParams: {
         auto: 'format,compress',
       },
     }),
-    ],
-  providers: [
   ],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

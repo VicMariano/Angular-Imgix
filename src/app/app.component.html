@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <button mat-button >IipuAngular</button>
+  <button mat-button>Angular-IIPU</button>
   <!-- START EDITTING BUTTON -->
   <button mat-stroked-button (click)="sidenav.open()">Start editing</button>
   <span class="spacer"></span>
@@ -37,7 +37,7 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav class="sidenav" mode="side" color="primary">
     <mat-selection-list #edition [multiple]="false">
-      <!-- ALL ROTATION AND ADJUSTMENTS' LIST -->
+      <!-- ALL ROTATION AND ADJUSTMENT LIST -->
       <mat-list-option
         *ngFor="let edition of availableEditions"
         [value]="edition"
@@ -48,41 +48,44 @@
     </mat-selection-list>
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
-
-    <form class="form-box" [formGroup]="imagesForm">
-      <!-- HEADER WITH IMAGE SELECTOR -->
-      <div class="img-picker">
-        <h3 class="img-picker-label">Pick an image to edit!</h3>
-        <mat-form-field appearance="fill" class="img-select">
-          <mat-label>Choose an image</mat-label>
-          <mat-select
-            class="select-img"
-            formControlName="index"
-            (selectionChange)="setValueToImageForm(testImgs[$event.value])"
+    <form class="form-box card-container" [formGroup]="imagesForm">
+      <mat-card class="card">
+        <!-- HEADER WITH IMAGE SELECTOR IMAGE, EDITIONS APPLIED AND URL -->
+        <mat-card-header class="img-picker">
+          <mat-card-title>Edit your image!</mat-card-title>
+          <mat-card-subtitle
+            >You can choose another image to edit</mat-card-subtitle
           >
-            <mat-option
-              *ngFor="let img of testImgs; index as i"
-              [value]="i"
-              color="secondary"
+          <mat-form-field appearance="fill" class="img-select">
+            <mat-label>Choose an image</mat-label>
+            <mat-select
+              class="select-img"
+              formControlName="index"
+              (selectionChange)="setValueToImageForm(testImgs[$event.value])"
             >
-              {{ img.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+              <mat-option
+                *ngFor="let img of testImgs; index as i"
+                [value]="i"
+                color="secondary"
+              >
+                {{ img.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card-header>
 
-      <!-- IMAGE, EDITIONS APPLIED AND URL -->
-      <div class="img-display-box">
-        <div class="img-and-editions">
-          <!-- MAIN IMAGE -->
-          <img
-            #img
-            ixImg
-            class="mainImg"
-            path="{{ imagesForm.value.path }}"
-            sizes="calc(100vw - 128px)"
-            [imgixParams]="editionHistory[actualStep]"
-          />
+        <!-- MAIN IMAGE -->
+        <img
+          #img
+          matCardImage
+          ixImg
+          class="mainImg"
+          path="{{ imagesForm.value.path }}"
+          sizes="calc(100vw - 128px)"
+          [imgixParams]="editionHistory[actualStep]"
+        />
+
+        <mat-card-content>
           <!-- COMPONENT DISPLAYING EDITTIONS APPLIED -->
           <app-current-edition
             *ngIf="showEditApplied"
@@ -90,26 +93,26 @@
             [parameters]="editionHistory[actualStep]"
             (emitNewParams)="paramsModified($event)"
           ></app-current-edition>
-        </div>
-        <!-- IMAGE'S URL GENERATED WITH ALL PARAMETERS -->
-        <div class="url-textbox">
-          <div>
-            {{
-              imagesForm.controls.url.value +
-                imagesForm.controls.parameters.value
-            }}
-          </div>
-        </div>
-      </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <!-- COMPONENT WITH INPUTS TO GENERATE THE PARAMETERS -->
+          <app-inputs
+            *ngIf="editionSelected"
+            [parameter]="editionSelected"
+            (paramEmitter)="setParam($event)"
+          ></app-inputs>
+          <!-- BUTTON OPEN NEW TABS TO THE IMAGE'S URL GENERATED WITH ALL PARAMETERS -->
+          <button
+            mat-stroked-button
+            color="primary"
+            [disabled]="!urlAndParams"
+            (click)="goToImg()"
+          >
+            Open the edited image
+          </button>
+        </mat-card-actions>
+      </mat-card>
     </form>
-
-<!-- COMPONENT WITH INPUTS TO GENERATE THE PARAMETERS -->
-    <div class="inputs-box" *ngIf="editionSelected">
-      <app-inputs
-        [parameter]="editionSelected"
-        (paramEmitter)="setParam($event)"
-      ></app-inputs>
-    </div>
-
   </mat-sidenav-content>
 </mat-sidenav-container>
